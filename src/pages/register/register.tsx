@@ -1,5 +1,5 @@
-import { FC, SyntheticEvent, useState } from 'react';
 import { RegisterUI } from '@ui-pages';
+import { FC, SyntheticEvent, useState } from 'react';
 
 export const Register: FC = () => {
   const [userName, setUserName] = useState('');
