@@ -10,35 +10,43 @@ import {
   Register,
   ResetPassword
 } from '@pages';
-import { Route, Routes, useLocation } from 'react-router-dom';
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import '../../index.css';
 import styles from './app.module.css';
 
 const App = () => {
   const location = useLocation();
-  const background = location.state && location.state.background;
+  const navigate = useNavigate();
+
+  const backgroundLocation = location.state?.background;
+
+  const handleModalClose = () => {
+    // TODO: Добавить логику если модалка открыта из прямой ссылки
+    navigate(-1);
+  };
 
   return (
     <div className={styles.app}>
       <AppHeader />
-      <Routes location={background || location}>
+      <Routes location={backgroundLocation || location}>
         <Route path='/' element={<ConstructorPage />} />
         <Route path='/feed' element={<Feed />} />
         <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Register />} />
         <Route path='/forgot-password' element={<ForgotPassword />} />
         <Route path='/reset-password' element={<ResetPassword />} />
-        <Route path='/profile' element={<Profile />} />
-        <Route path='/profile/orders' element={<ProfileOrders />} />
+        <Route path='/profile' element={<Profile />}>
+          <Route path='orders' element={<ProfileOrders />} />
+        </Route>
         <Route path='*' element={<NotFound404 />} />
       </Routes>
 
-      {background && (
+      {backgroundLocation && (
         <Routes>
           <Route
             path='/feed/:number'
             element={
-              <Modal onClose={() => window.history.back()} title=''>
+              <Modal onClose={handleModalClose} title=''>
                 <OrderInfo />
               </Modal>
             }
@@ -46,10 +54,7 @@ const App = () => {
           <Route
             path='/ingredients/:id'
             element={
-              <Modal
-                onClose={() => window.history.back()}
-                title='Детали ингредиента'
-              >
+              <Modal onClose={handleModalClose} title='Детали ингредиента'>
                 <IngredientDetails />
               </Modal>
             }
@@ -57,7 +62,7 @@ const App = () => {
           <Route
             path='/profile/orders/:number'
             element={
-              <Modal onClose={() => window.history.back()} title=''>
+              <Modal onClose={handleModalClose} title=''>
                 <OrderInfo />
               </Modal>
             }
