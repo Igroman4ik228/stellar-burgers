@@ -1,12 +1,13 @@
 import styles from './constructor-page.module.css';
 
 import { BurgerConstructor, BurgerIngredients } from '@components';
+import { isLoadingIngredientsSelector } from '@selectors';
+import { useSelector } from '@store';
 import { Preloader } from '@ui';
 import { FC } from 'react';
 
 export const ConstructorPage: FC = () => {
-  /** TODO: взять переменную из стора */
-  const isIngredientsLoading = false;
+  const isIngredientsLoading = useSelector(isLoadingIngredientsSelector);
 
   return (
     <>

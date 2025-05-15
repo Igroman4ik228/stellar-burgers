@@ -1,8 +1,10 @@
 import { RootState } from '../store';
 
-export const selectIngredients = (state: RootState) =>
+export const ingredientsSelector = (state: RootState) =>
   state.ingredients.ingredients;
-export const selectIngredientsLoading = (state: RootState) =>
+export const isLoadingIngredientsSelector = (state: RootState) =>
   state.ingredients.isLoading;
-export const selectIngredientsError = (state: RootState) =>
+export const errorIngredientsSelector = (state: RootState) =>
   state.ingredients.error;
+export const ingredientByIdSelector = (id: string) => (state: RootState) =>
+  state.ingredients.ingredients.find((item) => item._id === id);
