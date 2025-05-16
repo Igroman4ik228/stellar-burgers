@@ -13,7 +13,13 @@ import {
 import { getIngredients } from '@slices';
 import { useDispatch } from '@store';
 import { useEffect } from 'react';
-import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+import {
+  Route,
+  Routes,
+  useLocation,
+  useMatch,
+  useNavigate
+} from 'react-router-dom';
 import '../../index.css';
 import styles from './app.module.css';
 
@@ -24,10 +30,14 @@ const App = () => {
 
   const handleModalClose = () => navigate(-1);
 
+  const feedNumber = useMatch('/feed/:number')?.params.number;
+
   const backgroundLocation = location.state?.background;
 
   useEffect(() => {
     dispatch(getIngredients());
+
+    // Авторизация
   }, []);
 
   return (
@@ -36,18 +46,61 @@ const App = () => {
       <Routes location={backgroundLocation || location}>
         <Route path='/' element={<ConstructorPage />} />
         <Route path='/feed' element={<Feed />} />
+
+        {/* TODO: Protected */}
         <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Register />} />
-        <Route path='/forgot-password' element={<ForgotPassword />} />
         <Route path='/reset-password' element={<ResetPassword />} />
-        {/* TODO: Protected */}
+        <Route path='/forgot-password' element={<ForgotPassword />} />
         <Route path='/profile' element={<Profile />}>
           <Route path='orders' element={<ProfileOrders />} />
         </Route>
 
-        <Route path='*' element={<NotFound404 />} />
+        <Route
+          path='/ingredients/:id'
+          element={
+            <div className={styles.detailPageWrap}>
+              <p className={`${styles.detailHeader} text text_type_main-large`}>
+                Детали ингредиента
+              </p>
+              <IngredientDetails />
+            </div>
+          }
+        />
+        <Route
+          path='/feed/:number'
+          element={
+            <div className={styles.detailPageWrap}>
+              <p className={`${styles.detailHeader} text text_type_main-large`}>
+                {feedNumber?.padStart(6, '0')}
+              </p>
+              <OrderInfo />
+            </div>
+          }
+        />
+        {/* TODO: Protected */}
+        <Route
+          path='/profile/orders/:number'
+          element={
+            <div className={styles.detailPageWrap}>
+              <p className={`${styles.detailHeader} text text_type_main-large`}>
+                orderNumber
+              </p>
+              <OrderInfo />
+            </div>
+          }
+        />
+
+        <Route
+          path='*'
+          element={
+            <div className={styles.detailPageWrap}>
+              <NotFound404 />
+            </div>
+          }
+        />
       </Routes>
-      {/* // TODO: Добавить логику если модалка открыта из прямой ссылки */}
+
       {backgroundLocation && (
         <Routes>
           <Route
@@ -61,7 +114,10 @@ const App = () => {
           <Route
             path='/feed/:number'
             element={
-              <Modal onClose={handleModalClose} title=''>
+              <Modal
+                onClose={handleModalClose}
+                title={`#${feedNumber?.padStart(6, '0')}`}
+              >
                 <OrderInfo />
               </Modal>
             }
@@ -70,7 +126,7 @@ const App = () => {
           <Route
             path='/profile/orders/:number'
             element={
-              <Modal onClose={handleModalClose} title=''>
+              <Modal onClose={handleModalClose} title='#orderNumber'>
                 <OrderInfo />
               </Modal>
             }
