@@ -8,7 +8,7 @@ import {
 } from '@slices';
 
 const rootReducer = combineReducers({
-  ingredients: ingredientsSlice.reducer,
+  ingredient: ingredientsSlice.reducer,
   burgerConstructor: constructorSlice.reducer,
   user: userSlice.reducer,
   feed: feedSlice.reducer,
