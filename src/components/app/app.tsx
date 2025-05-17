@@ -28,7 +28,7 @@ const App = () => {
 
   useEffect(() => {
     dispatch(getIngredients());
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className={styles.app}>
