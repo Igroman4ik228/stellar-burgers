@@ -1,4 +1,4 @@
-import { ingredientsSelector } from '@selectors';
+import { ingredientsDataSelector } from '@selectors';
 import { useSelector } from '@store';
 import { BurgerIngredientsUI } from '@ui';
 import { TTabMode } from '@utils-types';
@@ -10,7 +10,7 @@ export const BurgerIngredients: FC = () => {
   const titleBunRef = useRef<HTMLHeadingElement>(null);
   const titleMainRef = useRef<HTMLHeadingElement>(null);
   const titleSaucesRef = useRef<HTMLHeadingElement>(null);
-  const ingredients = useSelector(ingredientsSelector);
+  const ingredients = useSelector(ingredientsDataSelector);
 
   const [bunsRef, inViewBuns] = useInView({
     threshold: 0

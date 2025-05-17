@@ -1,4 +1,4 @@
-import { ingredientsSelector, orderFeedByNumberSelector } from '@selectors';
+import { feedOrderByNumberSelector, ingredientsDataSelector } from '@selectors';
 import { TIngredient } from '@utils-types';
 import { FC, useMemo } from 'react';
 import { useSelector } from 'react-redux';
@@ -9,10 +9,10 @@ import { Preloader } from '../ui/preloader';
 export const OrderInfo: FC = () => {
   const { number } = useParams();
   const orderData = useSelector(
-    orderFeedByNumberSelector(Number.parseInt(number || ''))
+    feedOrderByNumberSelector(Number.parseInt(number || ''))
   );
 
-  const ingredients = useSelector(ingredientsSelector);
+  const ingredients = useSelector(ingredientsDataSelector);
 
   const orderInfo = useMemo(() => {
     if (!orderData || !ingredients.length) return null;

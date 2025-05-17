@@ -12,29 +12,29 @@ import { TUser } from '@utils-types';
 import { deleteCookie, getCookie, setCookie } from '../../utils/cookie';
 
 type TUserState = {
-  user: TUser | null;
+  data: TUser | null;
   isAuthChecked: boolean;
   registerIsLoading: boolean;
   registerError: string | null;
   loginIsLoading: boolean;
   loginError: string | null;
-  updateIsLoading: boolean;
-  updateError: string | null;
   getIsLoading: boolean;
   getError: string | null;
+  updateIsLoading: boolean;
+  updateError: string | null;
 };
 
 const initialState: TUserState = {
-  user: null,
+  data: null,
   isAuthChecked: false,
   registerIsLoading: false,
   registerError: null,
   loginIsLoading: false,
   loginError: null,
-  updateIsLoading: false,
-  updateError: null,
   getIsLoading: false,
-  getError: null
+  getError: null,
+  updateIsLoading: false,
+  updateError: null
 };
 
 const handleAuthTokens = (accessToken: string, refreshToken: string) => {
@@ -99,7 +99,7 @@ export const userSlice = createSlice({
       state.isAuthChecked = true;
     },
     logout: (state) => {
-      state.user = initialState.user;
+      state.data = initialState.data;
     }
   },
   extraReducers: (builder) => {
@@ -109,7 +109,7 @@ export const userSlice = createSlice({
         state.registerError = null;
       })
       .addCase(registerUser.fulfilled, (state, action) => {
-        state.user = action.payload;
+        state.data = action.payload;
         state.registerIsLoading = false;
       })
       .addCase(registerUser.rejected, (state, action) => {
@@ -117,25 +117,12 @@ export const userSlice = createSlice({
         state.registerError = action.error.message || 'Ошибка регистрации';
       })
 
-      .addCase(getUser.pending, (state) => {
-        state.getIsLoading = true;
-        state.getError = null;
-      })
-      .addCase(getUser.fulfilled, (state, action) => {
-        state.user = action.payload;
-        state.getIsLoading = false;
-      })
-      .addCase(getUser.rejected, (state, action) => {
-        state.getIsLoading = false;
-        state.getError = action.error.message || 'Ошибка получения данных';
-      })
-
       .addCase(loginUser.pending, (state) => {
         state.loginIsLoading = true;
         state.loginError = null;
       })
       .addCase(loginUser.fulfilled, (state, action) => {
-        state.user = action.payload;
+        state.data = action.payload;
         state.loginIsLoading = false;
       })
       .addCase(loginUser.rejected, (state, action) => {
@@ -143,12 +130,25 @@ export const userSlice = createSlice({
         state.loginError = action.error.message || 'Ошибка входа';
       })
 
+      .addCase(getUser.pending, (state) => {
+        state.getIsLoading = true;
+        state.getError = null;
+      })
+      .addCase(getUser.fulfilled, (state, action) => {
+        state.data = action.payload;
+        state.getIsLoading = false;
+      })
+      .addCase(getUser.rejected, (state, action) => {
+        state.getIsLoading = false;
+        state.getError = action.error.message || 'Ошибка получения данных';
+      })
+
       .addCase(updateUser.pending, (state) => {
         state.updateIsLoading = true;
         state.updateError = null;
       })
       .addCase(updateUser.fulfilled, (state, action) => {
-        state.user = action.payload;
+        state.data = action.payload;
         state.updateIsLoading = false;
       })
       .addCase(updateUser.rejected, (state, action) => {
@@ -158,4 +158,5 @@ export const userSlice = createSlice({
       });
   }
 });
+
 export const { authChecked, logout } = userSlice.actions;

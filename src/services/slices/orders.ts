@@ -3,13 +3,13 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { TOrder } from '@utils-types';
 
 type TOrdersState = {
-  orders: TOrder[];
+  data: TOrder[];
   isLoading: boolean;
   error: string | null;
 };
 
 const initialState: TOrdersState = {
-  orders: [],
+  data: [],
   isLoading: false,
   error: null
 };
@@ -27,7 +27,7 @@ export const ordersSlice = createSlice({
         state.error = null;
       })
       .addCase(getOrders.fulfilled, (state, action) => {
-        state.orders = action.payload;
+        state.data = action.payload;
         state.isLoading = false;
       })
       .addCase(getOrders.rejected, (state, action) => {
