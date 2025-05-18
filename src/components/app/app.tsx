@@ -1,14 +1,24 @@
-import { ConstructorPage } from '@pages';
+import { AppHeader } from '@components';
+import { checkUserAuth, getIngredients } from '@slices';
+import { useDispatch } from '@store';
+import { FC, useEffect } from 'react';
 import '../../index.css';
+import { RoutesComponent } from '../routes';
 import styles from './app.module.css';
 
-import { AppHeader } from '@components';
+export const App: FC = () => {
+  const dispatch = useDispatch();
 
-const App = () => (
-  <div className={styles.app}>
-    <AppHeader />
-    <ConstructorPage />
-  </div>
-);
+  useEffect(() => {
+    dispatch(checkUserAuth());
 
-export default App;
+    dispatch(getIngredients());
+  }, [dispatch]);
+
+  return (
+    <div className={styles.app}>
+      <AppHeader />
+      <RoutesComponent />
+    </div>
+  );
+};

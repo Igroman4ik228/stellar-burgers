@@ -1,5 +1,7 @@
 import { FC } from 'react';
+import { useSelector } from 'react-redux';
 
+import { feedSelector } from '@selectors';
 import { TOrder } from '@utils-types';
 import { FeedInfoUI } from '../ui/feed-info';
 
@@ -10,12 +12,10 @@ const getOrders = (orders: TOrder[], status: string): number[] =>
     .slice(0, 20);
 
 export const FeedInfo: FC = () => {
-  /** TODO: взять переменные из стора */
-  const orders: TOrder[] = [];
-  const feed = {};
+  const feed = useSelector(feedSelector);
+  const { orders } = feed;
 
   const readyOrders = getOrders(orders, 'done');
-
   const pendingOrders = getOrders(orders, 'pending');
 
   return (
