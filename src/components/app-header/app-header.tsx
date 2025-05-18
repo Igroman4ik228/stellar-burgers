@@ -6,5 +6,6 @@ import { useSelector } from 'react-redux';
 export const AppHeader: FC = () => {
   const user = useSelector(userDataSelector);
 
-  return <AppHeaderUI userName={(user && user.name) || ''} />;
+  const userName = user?.name || '';
+  return <AppHeaderUI userName={userName} />;
 };

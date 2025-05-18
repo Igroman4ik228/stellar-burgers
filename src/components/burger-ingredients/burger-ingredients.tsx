@@ -6,11 +6,13 @@ import { FC, useEffect, useRef, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 
 export const BurgerIngredients: FC = () => {
+  const ingredients = useSelector(ingredientsDataSelector);
+
   const [currentTab, setCurrentTab] = useState<TTabMode>('bun');
+
   const titleBunRef = useRef<HTMLHeadingElement>(null);
   const titleMainRef = useRef<HTMLHeadingElement>(null);
   const titleSaucesRef = useRef<HTMLHeadingElement>(null);
-  const ingredients = useSelector(ingredientsDataSelector);
 
   const [bunsRef, inViewBuns] = useInView({
     threshold: 0

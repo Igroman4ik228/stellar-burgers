@@ -11,18 +11,13 @@ export const Feed: FC = () => {
 
   const { orders, isLoading } = useSelector(feedSelector);
 
+  const handleGetFeeds = () => dispatch(getFeed());
+
   useEffect(() => {
-    dispatch(getFeed());
-  }, []);
+    handleGetFeeds();
+  }, [dispatch]);
 
   if (isLoading) return <Preloader />;
 
-  return (
-    <FeedUI
-      orders={orders}
-      handleGetFeeds={() => {
-        dispatch(getFeed());
-      }}
-    />
-  );
+  return <FeedUI orders={orders} handleGetFeeds={handleGetFeeds} />;
 };

@@ -1,16 +1,29 @@
+import {
+  userRegisterErrorSelector,
+  userRegisterIsLoadingSelector
+} from '@selectors';
 import { registerUser } from '@slices';
-import { useDispatch } from '@store';
+import { useDispatch, useSelector } from '@store';
+import { Preloader } from '@ui';
 import { RegisterUI } from '@ui-pages';
 import { FC, SyntheticEvent, useState } from 'react';
 
 export const Register: FC = () => {
+  const dispatch = useDispatch();
+
   const [email, setEmail] = useState('');
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
-  const dispatch = useDispatch();
+
+  const isLoading = useSelector(userRegisterIsLoadingSelector);
+  const error = useSelector(userRegisterErrorSelector);
 
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
+
+    if (!email || !userName || !password) {
+      return;
+    }
 
     dispatch(
       registerUser({
@@ -21,9 +34,11 @@ export const Register: FC = () => {
     );
   };
 
+  if (isLoading) return <Preloader />;
+
   return (
     <RegisterUI
-      errorText=''
+      errorText={error || ''}
       email={email}
       userName={userName}
       password={password}

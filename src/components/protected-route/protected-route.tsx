@@ -13,20 +13,18 @@ export const ProtectedRoute: FC<ProtectedRouteProps> = ({
   onlyUnAuth,
   children
 }) => {
+  const location = useLocation();
+
   const isAuthChecked = useSelector(isAuthCheckedSelector);
   const user = useSelector(userDataSelector);
-  const location = useLocation();
 
   if (!isAuthChecked) return <Preloader />;
 
-  if (!onlyUnAuth && !user) {
+  if (!onlyUnAuth && !user)
     return <Navigate replace to='/login' state={{ from: location }} />;
-  }
 
-  if (onlyUnAuth && user) {
-    const from = location.state?.from || { pathname: '/' };
-    return <Navigate replace to={from} />;
-  }
+  if (onlyUnAuth && user)
+    return <Navigate replace to={location.state?.from || { pathname: '/' }} />;
 
   return children;
 };

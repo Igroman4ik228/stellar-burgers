@@ -22,9 +22,8 @@ export const ResetPassword: FC = () => {
   };
 
   useEffect(() => {
-    if (!localStorage.getItem('resetPassword')) {
+    if (!localStorage.getItem('resetPassword'))
       navigate('/forgot-password', { replace: true });
-    }
   }, [navigate]);
 
   return (

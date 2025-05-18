@@ -3,12 +3,6 @@ import { FC } from 'react';
 import { OrderStatusProps } from './type';
 
 export const OrderStatus: FC<OrderStatusProps> = ({ status }) => {
-  // const statusText: { [key: string]: string } = {
-  //   pending: 'Готовится',
-  //   done: 'Выполнен',
-  //   created: 'Создан'
-  // };
-
   let textStyle = '';
   let text = '';
   switch (status) {

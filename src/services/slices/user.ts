@@ -127,6 +127,11 @@ export const userSlice = createSlice({
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.loginIsLoading = false;
+        if (action.error.message === 'email or password are incorrect') {
+          state.loginError =
+            'Указан неверный адрес электронной почты или пароль';
+          return;
+        }
         state.loginError = action.error.message || 'Ошибка входа';
       })
 

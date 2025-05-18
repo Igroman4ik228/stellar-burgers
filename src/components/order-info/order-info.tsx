@@ -1,23 +1,31 @@
-import { feedOrderByNumberSelector, ingredientsDataSelector } from '@selectors';
+import {
+  ingredientsDataSelector,
+  ordersDataByNumberSelector
+} from '@selectors';
 import { TIngredient } from '@utils-types';
-import { FC, useMemo } from 'react';
-import { useSelector } from 'react-redux';
+import { FC, useEffect, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
+
+import { getOrderByNumber } from '@slices';
+import { useDispatch, useSelector } from '@store';
 import { OrderInfoUI } from '../ui/order-info';
 import { Preloader } from '../ui/preloader';
 
 export const OrderInfo: FC = () => {
   const { number } = useParams();
-  const orderData = useSelector(
-    feedOrderByNumberSelector(Number.parseInt(number || ''))
-  );
+  const dispatch = useDispatch();
+
+  const parsedNumber = Number(number);
 
   const ingredients = useSelector(ingredientsDataSelector);
+  const orderData = useSelector(ordersDataByNumberSelector(parsedNumber));
+
+  useEffect(() => {
+    if (!orderData) dispatch(getOrderByNumber(parsedNumber));
+  }, [dispatch, parsedNumber, orderData]);
 
   const orderInfo = useMemo(() => {
     if (!orderData || !ingredients.length) return null;
-
-    const date = new Date(orderData.createdAt);
 
     type TIngredientsWithCount = {
       [key: string]: TIngredient & { count: number };
@@ -50,7 +58,7 @@ export const OrderInfo: FC = () => {
     return {
       ...orderData,
       ingredientsInfo,
-      date,
+      date: new Date(orderData.createdAt),
       total
     };
   }, [orderData, ingredients]);

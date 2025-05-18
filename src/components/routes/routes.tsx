@@ -82,16 +82,15 @@ export const RoutesComponent: FC = () => {
               <Profile />
             </ProtectedRoute>
           }
-        >
-          <Route
-            path='orders'
-            element={
-              <ProtectedRoute>
-                <ProfileOrders />
-              </ProtectedRoute>
-            }
-          />
-        </Route>
+        />
+        <Route
+          path='/profile/orders'
+          element={
+            <ProtectedRoute>
+              <ProfileOrders />
+            </ProtectedRoute>
+          }
+        />
 
         <Route
           path='/ingredients/:id'
