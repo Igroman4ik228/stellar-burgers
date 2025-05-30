@@ -1,13 +1,8 @@
 import { getFeedsApi } from '@api';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { TOrdersData } from '@utils-types';
+import { TFeedState } from './type';
 
-type TFeedState = TOrdersData & {
-  isLoading: boolean;
-  error: string | null;
-};
-
-const initialState: TFeedState = {
+export const initialState: TFeedState = {
   orders: [],
   total: 0,
   totalToday: 0,

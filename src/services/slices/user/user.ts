@@ -8,23 +8,10 @@ import {
   updateUserApi
 } from '@api';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { TUser } from '@utils-types';
-import { deleteCookie, getCookie, setCookie } from '../../utils/cookie';
+import { deleteCookie, getCookie, setCookie } from '../../../utils/cookie';
+import { TUserState } from './type';
 
-type TUserState = {
-  data: TUser | null;
-  isAuthChecked: boolean;
-  registerIsLoading: boolean;
-  registerError: string | null;
-  loginIsLoading: boolean;
-  loginError: string | null;
-  getIsLoading: boolean;
-  getError: string | null;
-  updateIsLoading: boolean;
-  updateError: string | null;
-};
-
-const initialState: TUserState = {
+export const initialState: TUserState = {
   data: null,
   isAuthChecked: false,
   registerIsLoading: false,
