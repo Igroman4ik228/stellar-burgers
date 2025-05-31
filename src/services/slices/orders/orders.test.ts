@@ -14,7 +14,7 @@ const mockOrders: TOrder[] = [
 ];
 
 describe('тест слайса orders', () => {
-  test('состояние загрузки при запросе заказов', () => {
+  it('состояние загрузки при запросе заказов', () => {
     const action = { type: getOrders.pending.type };
     const state = ordersSlice.reducer(initialState, action);
 
@@ -22,7 +22,7 @@ describe('тест слайса orders', () => {
     expect(state.error).toBe(null);
   });
 
-  test('состояние успешной загрузки заказов', () => {
+  it('состояние успешной загрузки заказов', () => {
     const action = {
       type: getOrders.fulfilled.type,
       payload: mockOrders
@@ -37,7 +37,7 @@ describe('тест слайса orders', () => {
     expect(state.error).toBe(null);
   });
 
-  test('состояние ошибки при загрузке заказов', () => {
+  it('состояние ошибки при загрузке заказов', () => {
     const action = {
       type: getOrders.rejected.type,
       error: { message: 'Ошибка загрузки' }

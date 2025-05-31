@@ -18,7 +18,7 @@ const mockIngredients: TIngredient[] = [
 ];
 
 describe('тест слайса ingredients', () => {
-  test('состояние загрузки при запросе ингредиентов', () => {
+  it('состояние загрузки при запросе ингредиентов', () => {
     const action = { type: getIngredients.pending.type };
     const state = ingredientsSlice.reducer(initialState, action);
 
@@ -26,7 +26,7 @@ describe('тест слайса ingredients', () => {
     expect(state.error).toBe(null);
   });
 
-  test('состояние успешной загрузки ингредиентов', () => {
+  it('состояние успешной загрузки ингредиентов', () => {
     const action = {
       type: getIngredients.fulfilled.type,
       payload: mockIngredients
@@ -41,7 +41,7 @@ describe('тест слайса ingredients', () => {
     expect(state.error).toBe(null);
   });
 
-  test('состояние ошибки при загрузке ингредиентов', () => {
+  it('состояние ошибки при загрузке ингредиентов', () => {
     const action = {
       type: getIngredients.rejected.type,
       error: { message: 'Ошибка загрузки' }

@@ -18,7 +18,7 @@ const mockFeedData = {
 };
 
 describe('тест слайса feed', () => {
-  test('состояние загрузки при запросе ленты', () => {
+  it('состояние загрузки при запросе ленты', () => {
     const action = { type: getFeed.pending.type };
     const state = feedSlice.reducer(initialState, action);
 
@@ -26,7 +26,7 @@ describe('тест слайса feed', () => {
     expect(state.error).toBe(null);
   });
 
-  test('состояние успешной загрузки ленты', () => {
+  it('состояние успешной загрузки ленты', () => {
     const action = {
       type: getFeed.fulfilled.type,
       payload: mockFeedData
@@ -43,7 +43,7 @@ describe('тест слайса feed', () => {
     expect(state.error).toBe(null);
   });
 
-  test('состояние ошибки при загрузке ленты', () => {
+  it('состояние ошибки при загрузке ленты', () => {
     const action = {
       type: getFeed.rejected.type,
       error: { message: 'Ошибка загрузки' }

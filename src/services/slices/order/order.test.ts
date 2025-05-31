@@ -18,7 +18,7 @@ const mockOrder: TOrder = {
 
 describe('тест слайса order', () => {
   describe('создание заказа', () => {
-    test('состояние загрузки при создании заказа', () => {
+    it('состояние загрузки при создании заказа', () => {
       const action = { type: orderBurger.pending.type };
       const state = orderSlice.reducer(initialState, action);
 
@@ -26,7 +26,7 @@ describe('тест слайса order', () => {
       expect(state.newOrderError).toBe(null);
     });
 
-    test('состояние успешного создания заказа', () => {
+    it('состояние успешного создания заказа', () => {
       const action = {
         type: orderBurger.fulfilled.type,
         payload: mockOrder
@@ -41,7 +41,7 @@ describe('тест слайса order', () => {
       expect(state.newOrderError).toBe(null);
     });
 
-    test('состояние ошибки при создании заказа', () => {
+    it('состояние ошибки при создании заказа', () => {
       const action = {
         type: orderBurger.rejected.type,
         error: { message: 'Ошибка создания' }
@@ -57,7 +57,7 @@ describe('тест слайса order', () => {
   });
 
   describe('получение заказа по номеру', () => {
-    test('состояние загрузки при запросе заказа', () => {
+    it('состояние загрузки при запросе заказа', () => {
       const action = { type: getOrderByNumber.pending.type };
       const state = orderSlice.reducer(initialState, action);
 
@@ -65,7 +65,7 @@ describe('тест слайса order', () => {
       expect(state.orderByNumberError).toBe(null);
     });
 
-    test('состояние успешного получения заказа', () => {
+    it('состояние успешного получения заказа', () => {
       const action = {
         type: getOrderByNumber.fulfilled.type,
         payload: mockOrder
@@ -80,7 +80,7 @@ describe('тест слайса order', () => {
       expect(state.orderByNumberError).toBe(null);
     });
 
-    test('состояние ошибки при получении заказа', () => {
+    it('состояние ошибки при получении заказа', () => {
       const action = {
         type: getOrderByNumber.rejected.type,
         error: { message: 'Заказ не найден' }

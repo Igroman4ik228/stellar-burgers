@@ -36,7 +36,7 @@ const mockIngredient: TIngredient = {
 };
 
 describe('тест слайса constructor', () => {
-  test('добавление булки в конструктор', () => {
+  it('добавление булки в конструктор', () => {
     const action = addIngredient(mockBun);
     const state = constructorSlice.reducer(initialState, action);
 
@@ -48,7 +48,7 @@ describe('тест слайса constructor', () => {
     );
   });
 
-  test('добавление ингредиента в конструктор', () => {
+  it('добавление ингредиента в конструктор', () => {
     const action = addIngredient(mockIngredient);
     const state = constructorSlice.reducer(initialState, action);
 
@@ -56,7 +56,7 @@ describe('тест слайса constructor', () => {
     expect(state.ingredients[0].name).toBe('Котлета');
   });
 
-  test('удаление ингредиента из конструктора', () => {
+  it('удаление ингредиента из конструктора', () => {
     const id = '123';
     const ingredient = { ...mockIngredient, id: id };
     const action = removeIngredient(id);
@@ -71,7 +71,7 @@ describe('тест слайса constructor', () => {
     expect(state.ingredients).toHaveLength(0);
   });
 
-  test('перемещение ингредиента в конструкторе', () => {
+  it('перемещение ингредиента в конструкторе', () => {
     const ingredient1 = { ...mockIngredient, id: '123', name: 'Первый' };
     const ingredient2 = { ...mockIngredient, id: '456', name: 'Второй' };
     const initialState = {

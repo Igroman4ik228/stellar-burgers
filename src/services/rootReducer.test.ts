@@ -45,7 +45,7 @@ const expectedInitialState = {
 };
 
 describe('тест rootReducer', () => {
-  test('начальное состояние при вызове с неопределенным состоянием и неизвестным действием', () => {
+  it('начальное состояние при вызове с неопределенным состоянием и неизвестным действием', () => {
     const unknownAction = { type: 'UNKNOWN_ACTION' };
     const actualState = rootReducer(undefined, unknownAction);
 

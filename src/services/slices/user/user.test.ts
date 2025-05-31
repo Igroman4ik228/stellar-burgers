@@ -15,7 +15,7 @@ const mockUser: TUser = {
 
 describe('тест слайса user', () => {
   describe('регистрация пользователя', () => {
-    test('состояние загрузки при регистрации', () => {
+    it('состояние загрузки при регистрации', () => {
       const action = { type: registerUser.pending.type };
       const state = userSlice.reducer(initialState, action);
 
@@ -23,7 +23,7 @@ describe('тест слайса user', () => {
       expect(state.registerError).toBe(null);
     });
 
-    test('состояние успешной регистрации', () => {
+    it('состояние успешной регистрации', () => {
       const action = {
         type: registerUser.fulfilled.type,
         payload: mockUser
@@ -38,7 +38,7 @@ describe('тест слайса user', () => {
       expect(state.registerError).toBe(null);
     });
 
-    test('состояние ошибки при регистрации', () => {
+    it('состояние ошибки при регистрации', () => {
       const action = {
         type: registerUser.rejected.type,
         error: { message: 'Ошибка регистрации' }
@@ -54,7 +54,7 @@ describe('тест слайса user', () => {
   });
 
   describe('вход пользователя', () => {
-    test('состояние загрузки при входе', () => {
+    it('состояние загрузки при входе', () => {
       const action = { type: loginUser.pending.type };
       const state = userSlice.reducer(initialState, action);
 
@@ -62,7 +62,7 @@ describe('тест слайса user', () => {
       expect(state.loginError).toBe(null);
     });
 
-    test('состояние успешного входа', () => {
+    it('состояние успешного входа', () => {
       const action = {
         type: loginUser.fulfilled.type,
         payload: mockUser
@@ -77,7 +77,7 @@ describe('тест слайса user', () => {
       expect(state.loginError).toBe(null);
     });
 
-    test('состояние ошибки при входе с неверными данными', () => {
+    it('состояние ошибки при входе с неверными данными', () => {
       const action = {
         type: loginUser.rejected.type,
         error: { message: 'Указан неверный адрес электронной почты или пароль' }
@@ -95,7 +95,7 @@ describe('тест слайса user', () => {
   });
 
   describe('получение данных пользователя', () => {
-    test('состояние загрузки при запросе данных', () => {
+    it('состояние загрузки при запросе данных', () => {
       const action = { type: getUser.pending.type };
       const state = userSlice.reducer(initialState, action);
 
@@ -103,7 +103,7 @@ describe('тест слайса user', () => {
       expect(state.getError).toBe(null);
     });
 
-    test('состояние успешного получения данных', () => {
+    it('состояние успешного получения данных', () => {
       const action = {
         type: getUser.fulfilled.type,
         payload: mockUser
@@ -118,7 +118,7 @@ describe('тест слайса user', () => {
       expect(state.getError).toBe(null);
     });
 
-    test('состояние ошибки при получении данных', () => {
+    it('состояние ошибки при получении данных', () => {
       const action = {
         type: getUser.rejected.type,
         error: { message: 'Ошибка получения данных' }
@@ -134,7 +134,7 @@ describe('тест слайса user', () => {
   });
 
   describe('обновление данных пользователя', () => {
-    test('состояние загрузки при обновлении данных', () => {
+    it('состояние загрузки при обновлении данных', () => {
       const action = { type: updateUser.pending.type };
       const state = userSlice.reducer(initialState, action);
 
@@ -142,7 +142,7 @@ describe('тест слайса user', () => {
       expect(state.updateError).toBe(null);
     });
 
-    test('состояние успешного обновления данных', () => {
+    it('состояние успешного обновления данных', () => {
       const updatedUser = { ...mockUser, name: 'Updated Name' };
       const action = {
         type: updateUser.fulfilled.type,
@@ -158,7 +158,7 @@ describe('тест слайса user', () => {
       expect(state.updateError).toBe(null);
     });
 
-    test('состояние ошибки при обновлении данных', () => {
+    it('состояние ошибки при обновлении данных', () => {
       const action = {
         type: updateUser.rejected.type,
         error: { message: 'Ошибка обновления данных' }
@@ -173,7 +173,7 @@ describe('тест слайса user', () => {
     });
   });
 
-  test('состояние выхода пользователя', () => {
+  it('состояние выхода пользователя', () => {
     const action = { type: userSlice.actions.logout.type };
     const state = userSlice.reducer(
       { ...initialState, data: mockUser },
