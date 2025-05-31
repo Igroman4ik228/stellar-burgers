@@ -15,7 +15,7 @@ describe('тесты конструктора бургеров', () => {
       .click();
 
     cy.get('[data-cy="burger-constructor"]').within(() => {
-      cy.contains('Краторная булка N-200i (верх)123').should('exist');
+      cy.contains('Краторная булка N-200i (верх)').should('exist');
       cy.contains('Краторная булка N-200i (низ)').should('exist');
     });
   });
