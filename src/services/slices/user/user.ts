@@ -8,23 +8,10 @@ import {
   updateUserApi
 } from '@api';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { TUser } from '@utils-types';
-import { deleteCookie, getCookie, setCookie } from '../../utils/cookie';
+import { deleteCookie, getCookie, setCookie } from '../../../utils/cookie';
+import { TUserState } from './type';
 
-type TUserState = {
-  data: TUser | null;
-  isAuthChecked: boolean;
-  registerIsLoading: boolean;
-  registerError: string | null;
-  loginIsLoading: boolean;
-  loginError: string | null;
-  getIsLoading: boolean;
-  getError: string | null;
-  updateIsLoading: boolean;
-  updateError: string | null;
-};
-
-const initialState: TUserState = {
+export const initialState: TUserState = {
   data: null,
   isAuthChecked: false,
   registerIsLoading: false,
@@ -127,12 +114,10 @@ export const userSlice = createSlice({
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.loginIsLoading = false;
-        if (action.error.message === 'email or password are incorrect') {
+        if (action.error.message === 'email or password are incorrect')
           state.loginError =
             'Указан неверный адрес электронной почты или пароль';
-          return;
-        }
-        state.loginError = action.error.message || 'Ошибка входа';
+        else state.loginError = action.error.message || 'Ошибка входа';
       })
 
       .addCase(getUser.pending, (state) => {
@@ -145,7 +130,8 @@ export const userSlice = createSlice({
       })
       .addCase(getUser.rejected, (state, action) => {
         state.getIsLoading = false;
-        state.getError = action.error.message || 'Ошибка получения данных';
+        state.getError =
+          action.error.message || 'Ошибка получения данных пользователя';
       })
 
       .addCase(updateUser.pending, (state) => {

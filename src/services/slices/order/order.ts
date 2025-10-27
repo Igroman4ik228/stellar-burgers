@@ -1,17 +1,8 @@
 import { getOrderByNumberApi, orderBurgerApi } from '@api';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { TOrder } from '@utils-types';
+import { TOrderState } from './type';
 
-type TOrderState = {
-  newOrderData: TOrder | null;
-  newOrderIsLoading: boolean;
-  newOrderError: string | null;
-  orderByNumber: TOrder | null;
-  orderByNumberIsLoading: boolean;
-  orderByNumberError: string | null;
-};
-
-const initialState: TOrderState = {
+export const initialState: TOrderState = {
   newOrderData: null,
   newOrderIsLoading: false,
   newOrderError: null,
